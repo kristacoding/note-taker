@@ -3,6 +3,7 @@ var express = require("express");
 var path = require("path");
 var fs = require("fs");
 const { json } = require("body-parser");
+const { v4: uuidv4 } = require('uuid');
 
 // Sets up the Express App
 var app = express();
@@ -44,11 +45,21 @@ app.get("/api/notes", function(req, res){
 // API Routes
 app.post("/api/notes", function (req, res) {
     var newNote = req.body; 
+    newNote.id = uuidv4(); 
     allNotes.push(newNote); 
     updateDB();
     res.json(newNote); //sending back to the frontend the json object, never gets commited to a file. 
     return console.log("New Note Added")
-})
+});
+
+app.delete("/api/notes/:id", function(req,res){
+   var filteredNotes = allNotes.filter(note => note.id !== req.params.id);
+   allNotes = filteredNotes;
+   updateDB();
+   res.json({ ok: true});
+   return console.log("Note was deleted")
+});
+
 
 
 // Starts the server to begin listening
