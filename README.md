@@ -1,23 +1,24 @@
-# note-taker
- Create an application that can be used to write, save, and delete notes. This application will use an express backend and save and retrieve note data from a JSON file.
+## Overview
+ This is an application that can be used to write, save, and delete notes. It uses an express backend and save and retrieve note data from a JSON file.
 
+## Required Packages
+ To have these application run successfully, NPM Express and NPM UUID need to be installed. 
 
- * The following HTML routes should be created:
+## Links
+  https://notes-note-taker.herokuapp.com/
+  https://notes-note-taker.herokuapp.com/notes
 
-  * GET `/notes` - Should return the `notes.html` file. - done
+## Description
 
-  * GET `*` - Should return the `index.html` file - done
+Given the frontend code, using Node.JS and Express.JS the following backend routers were created to return the notes from the database. This will then allow the user to create and save new notes, and delete notes. 
 
-* The application should have a `db.json` file on the backend that will be used to store and retrieve notes using the `fs` module. - confused. I think i have this? 
+The first route created was to read all the notes in the database. Having this route allows the notes to be presented then future actions can take place after viewing all the notes. Next, we created routes to tell the server which pages to show with which corresponding URL. There were three routes created to the homepage (/), notes (/notes), and a JSON file (/api/notes). 
 
-* The following API routes should be created:
+Next an API post route was created. This Post route allows the user to save a note to the datebase.  To write the note to the database, we had to change it from an object to a string. Additionally when saving a new note, we added a unique id using the NPM application UUID. This ID is then added to the note when it is saved to the database. 
 
-  * GET `/api/notes` - Should read the `db.json` file and return all saved notes as JSON. - done
+With the unique ID, we are able to then create our last route which is a delete route. This route allows the user to delete a note that has been saved to the database. By assigning each note a unique ID, we are able to filter the database to show all other IDs beside the one that has been deleted. 
 
-  * POST `/api/notes` - Should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client. - done 
+Finally, we add our code to have the routes send to the Port and connect the backend and frontend. 
 
-  * DELETE `/api/notes/:id` - Should receive a query parameter containing the id of a note to delete. 
-  
-  This means you'll need to find a way to give each note a unique `id` when it's saved. 
-  
-  In order to delete a note, you'll need to read all notes from the `db.json` file, remove the note with the given `id` property, and then rewrite the notes to the `db.json` file.
+## Image
+<img src = "images\Note-taker.png">
